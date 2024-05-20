@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     @IBAction func buttonsAction(_ sender: UIButton) {
         selectedType = MathTypes(rawValue: sender.tag) ?? .add
         performSegue(withIdentifier: "goToNext", sender: sender)
+        print("")
     }
     
     @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {
