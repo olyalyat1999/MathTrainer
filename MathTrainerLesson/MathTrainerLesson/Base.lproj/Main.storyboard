@@ -299,12 +299,28 @@
                                     <action selector="rightAction:" destination="kgF-y9-uI3" eventType="touchUpInside" id="Bf3-Ji-IK2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oil-wE-g7C">
+                                <rect key="frame" x="401" y="50" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ckm-7u-Pqs">
+                                <rect key="frame" x="301" y="60" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kK8-Qm-1YC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="kK8-Qm-1YC" firstAttribute="trailing" secondItem="Oil-wE-g7C" secondAttribute="trailing" constant="-50" id="1yk-EA-GRF"/>
+                            <constraint firstItem="Ckm-7u-Pqs" firstAttribute="top" secondItem="kK8-Qm-1YC" secondAttribute="top" constant="60" id="Eqq-gR-Pnm"/>
+                            <constraint firstItem="Oil-wE-g7C" firstAttribute="top" secondItem="kK8-Qm-1YC" secondAttribute="top" constant="50" id="GK8-Uy-xf6"/>
                             <constraint firstItem="N1j-YU-gbA" firstAttribute="top" secondItem="kK8-Qm-1YC" secondAttribute="top" constant="50" id="MMw-Nr-mEL"/>
                             <constraint firstItem="YYZ-Wh-bSo" firstAttribute="centerX" secondItem="dsM-OG-shB" secondAttribute="centerX" id="ODa-Kn-sMM"/>
+                            <constraint firstItem="kK8-Qm-1YC" firstAttribute="trailing" secondItem="Ckm-7u-Pqs" secondAttribute="trailing" constant="50" id="Oms-pj-P75"/>
                             <constraint firstItem="TvL-OO-W4L" firstAttribute="top" secondItem="YYZ-Wh-bSo" secondAttribute="bottom" constant="120" id="PWO-xg-gCR"/>
                             <constraint firstItem="TvL-OO-W4L" firstAttribute="centerX" secondItem="dsM-OG-shB" secondAttribute="centerX" constant="-60" id="aGS-e1-Aoa"/>
                             <constraint firstItem="YYZ-Wh-bSo" firstAttribute="centerY" secondItem="dsM-OG-shB" secondAttribute="centerY" constant="-30" id="egg-6g-vRm"/>
@@ -316,6 +332,7 @@
                     <navigationItem key="navigationItem" id="fRD-AE-vUT"/>
                     <connections>
                         <outlet property="backButton" destination="N1j-YU-gbA" id="kGS-oJ-2tQ"/>
+                        <outlet property="counterLabel" destination="Ckm-7u-Pqs" id="4ub-48-UXY"/>
                         <outlet property="leftButton" destination="TvL-OO-W4L" id="sMp-uD-IgJ"/>
                         <outlet property="questionLabel" destination="YYZ-Wh-bSo" id="Aka-cZ-Ajl"/>
                         <outlet property="rightButton" destination="DUX-KD-ivC" id="AM8-qb-vV3"/>

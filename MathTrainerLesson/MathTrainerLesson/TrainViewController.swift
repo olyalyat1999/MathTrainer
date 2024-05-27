@@ -14,6 +14,7 @@ final class TrainViewController: UIViewController {
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var counterLabel: UILabel!
     
     //MARK: - Properties
     var type: MathTypes = .add {
@@ -30,6 +31,7 @@ final class TrainViewController: UIViewController {
             }
         }
     }
+    
     
     private var firstNumber = 0
     private var secondNumber = 0
@@ -52,10 +54,23 @@ final class TrainViewController: UIViewController {
         }
     }
     
+    private var totalQuestions: Int = 0 {
+        didSet {
+            updateCounterLabel()
+        }
+    }
+    
+    private var correctAnswers: Int = 0 {
+        didSet {
+            updateCounterLabel()
+        }
+    }
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         configureQuestion()
         configureButtons()
+        updateCounterLabel()
     }
     
     //MARK: - IBActions
@@ -94,11 +109,22 @@ final class TrainViewController: UIViewController {
     }
     
     private func configureQuestion() {
-        firstNumber = Int.random(in: 1...99)
-        secondNumber = Int.random(in: 1...99)
-        
+        switch type {
+        case .add, .multiply, .subtract:
+            firstNumber = Int.random(in: 1...99)
+            secondNumber = Int.random(in: 1...99)
+            let question: String = "\(firstNumber) \(sign) \(secondNumber) ="
+            questionLabel.text = question
+        case .divide:
+            secondNumber = Int.random(in: 1...10)
+            let multiplier = Int.random(in: 1...10)
+            firstNumber = secondNumber * multiplier
+        }
         let question: String = "\(firstNumber) \(sign) \(secondNumber) ="
         questionLabel.text = question
+        
+        //Обновляем количествово вопрсов при каждом новом вопросе
+        totalQuestions += 1
     }
     
     private func check(answer: String, for button: UIButton  ) {
@@ -111,12 +137,17 @@ final class TrainViewController: UIViewController {
             
             if !isSecondAttempt {
                 count += 1
+                correctAnswers += 1
             }
-            count += isSecondAttempt ? 0 : 1
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self ] in
                 self?.configureQuestion()
                 self?.configureButtons()
             }
         }
+    }
+    
+    private func updateCounterLabel() {
+        counterLabel.text = "\(correctAnswers)/\(totalQuestions)"
     }
 }
