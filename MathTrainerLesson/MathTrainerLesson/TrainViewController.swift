@@ -8,68 +8,48 @@
 import UIKit
 
 final class TrainViewController: UIViewController {
+
     //MARK: - IBOutlets
-    
+
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var counterLabel: UILabel!
-    
+
     //MARK: - Properties
-    var type: MathTypes = .add {
-        didSet {
-            switch type{
-            case .add:
-                sign = "+"
-            case .subtract:
-                sign = "-"
-            case .multiply:
-                sign = "*"
-            case .divide:
-                sign = "/"
-            }
-        }
-    }
-    
-    
+
+    /// Строитель юай элементов
+    private let uiBuilder = UIBuilder()
     private var firstNumber = 0
     private var secondNumber = 0
-    private var sign: String = ""
-    private var count: Int = 0 {
-        didSet {
-            print("Count: \(count)")
-        }
-    }
-    private var answer:Int {
+    private var count: Int = 0
+    private var totalQuestions: Int = 0
+    private var correctAnswers: Int = 0
+    /// Заприватили свойство, тк конфигурируем начальное состояние в функции configureInital()
+    private var type: MathTypes = .add
+
+    private var answer: Int {
         switch type {
         case .add:
             return firstNumber + secondNumber
+
         case .subtract:
             return firstNumber - secondNumber
+
         case .multiply:
             return firstNumber * secondNumber
+
         case .divide:
             return firstNumber / secondNumber
         }
     }
     
-    private var totalQuestions: Int = 0 {
-        didSet {
-            updateCounterLabel()
-        }
-    }
-    
-    private var correctAnswers: Int = 0 {
-        didSet {
-            updateCounterLabel()
-        }
-    }
-    
     //MARK: - Life Cycle
     override func viewDidLoad() {
-        configureQuestion()
+        super.viewDidLoad()
         configureButtons()
+        configureQuestion()
         updateCounterLabel()
     }
     
@@ -81,73 +61,70 @@ final class TrainViewController: UIViewController {
     @IBAction func rightAction(_ sender: UIButton) {
         check(answer: sender.titleLabel?.text ?? "" , for: sender)
     }
-    //MARK: - Methods
-    private func configureButtons() {
-        let buttonsArray = [leftButton, rightButton]
-        
-        buttonsArray.forEach{ button in
-            button?.backgroundColor = .systemYellow
-        }
-        //add shadow
-        [leftButton, rightButton, backButton].forEach { button in
-            button.layer.shadowColor = UIColor.darkGray.cgColor
-            button.layer.shadowOffset = CGSize(width: 0, height: 2)
-            button.layer.shadowOpacity = 0.4
-            button.layer.shadowRadius = 3
-        }
-        
-        let isRightButton = Bool.random()
-        var randomAnswer: Int
-        
-        repeat {
-            randomAnswer = Int.random(in: (answer - 10)...(answer + 10))
-        } while randomAnswer == answer
-        
-        rightButton.setTitle(isRightButton ? String(answer)  : String(randomAnswer) , for: .normal)
-        
-        leftButton.setTitle(isRightButton ? String(randomAnswer) : String(answer)  , for: .normal)
-    }
+
+    //MARK: - Internal methods
     
+    /// Конфигуририем начальное состояние контроллера
+    func configureInital(with type: MathTypes) {
+        self.type = type
+        /// Добавим проверку на 0, тк нельзя делить на 0. Если тайп будет divide,
+        /// установим secondNumber равным 1, иначе выйдем из функции
+        guard type == .divide else { return }
+        secondNumber = 1
+    }
+
+    //MARK: - Private methods
+
+    private func configureButtons() {
+        uiBuilder.configureButtons([leftButton, rightButton, backButton])
+    }
+
     private func configureQuestion() {
-        switch type {
-        case .add, .multiply, .subtract:
-            firstNumber = Int.random(in: 1...99)
-            secondNumber = Int.random(in: 1...99)
-            let question: String = "\(firstNumber) \(sign) \(secondNumber) ="
-            questionLabel.text = question
-        case .divide:
-            secondNumber = Int.random(in: 1...10)
-            let multiplier = Int.random(in: 1...10)
-            firstNumber = secondNumber * multiplier
-        }
-        let question: String = "\(firstNumber) \(sign) \(secondNumber) ="
-        questionLabel.text = question
+        firstNumber = Int.random(in: 1...4)
+        secondNumber = Int.random(in: 1...4)
         
-        //Обновляем количествово вопрсов при каждом новом вопросе
+        /// 0 невозможен, но на будущее страхуемся, вдруг коллега разработчик поменяет случайно
+        if type == .divide && secondNumber == 0 {
+            secondNumber = 1
+        }
+
+        let isRightButton = Bool.random()
+        var randomAnswer = Int.random(in: (answer - 10)...(answer + 10))
+        if randomAnswer == answer {
+            randomAnswer = answer + 1 /// если сгенерируется такое же число как и правильный ответ
+        }
+
+        questionLabel.text = "\(firstNumber) \(type.stringValue) \(secondNumber) = ?"
+        rightButton.setTitle(isRightButton ? String(answer) : String(randomAnswer), for: .normal)
+        leftButton.setTitle(isRightButton ? String(randomAnswer) : String(answer), for: .normal)
         totalQuestions += 1
     }
-    
-    private func check(answer: String, for button: UIButton  ) {
-        let isRightAnswer =  Int(answer) == self.answer
-        
-        button.backgroundColor = isRightAnswer ? .green : .red
-        
-        if isRightAnswer {
-            let isSecondAttempt = rightButton.backgroundColor == .red || leftButton.backgroundColor == .red
-            
-            if !isSecondAttempt {
-                count += 1
-                correctAnswers += 1
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self ] in
-                self?.configureQuestion()
-                self?.configureButtons()
+
+    private func check(answer: String, for button: UIButton) {
+            let isRightAnswer = Int(answer) == self.answer
+            button.backgroundColor = isRightAnswer ? .green : .red
+
+            if isRightAnswer {
+                let isSecondAttempt = 
+                rightButton.backgroundColor == .red ||
+                leftButton.backgroundColor == .red
+                
+                if !isSecondAttempt {
+                    count += 1
+                    correctAnswers += 1
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                    self?.configureQuestion()
+                    self?.configureButtons()
+                    self?.updateCounterLabel()
+                }
+            } else {
+                updateCounterLabel()
             }
         }
-    }
-    
+
     private func updateCounterLabel() {
-        counterLabel.text = "\(correctAnswers)/\(totalQuestions)"
+        counterLabel.text = "\(correctAnswers) / \(totalQuestions)"
     }
 }

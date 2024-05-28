@@ -8,21 +8,40 @@
 import UIKit
 
 enum MathTypes: Int {
-    case add, subtract, multiply, divide
+    case add
+    case subtract
+    case multiply
+    case divide
+
+    var stringValue: String {
+        switch self {
+        case .add:
+            return "+"
+        case .subtract:
+            return "-"
+        case .multiply:
+            return "*"
+        case .divide:
+            return "/"
+        }
+    }
 }
 
 class ViewController: UIViewController {
-//MARK: - IBOutles
+
+    //MARK: - UI Elements
     @IBOutlet var buttonsCollection: [UIButton]!
     
-    //MARK: - Properties
+    //MARK: - Private properties
     private var selectedType: MathTypes = .add
+    /// Создадим экземпляр вспомогательного класса
+    private let uiBuilder = UIBuilder()
     
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configureButtons()
+        /// код по конфигурированию кнопок перенесли в UIBuilder
+        uiBuilder.configureButtons(buttonsCollection)
     }
 
     //MARK: - Actions
@@ -30,27 +49,14 @@ class ViewController: UIViewController {
         selectedType = MathTypes(rawValue: sender.tag) ?? .add
         performSegue(withIdentifier: "goToNext", sender: sender)
     }
-    
-    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {
-        
-    }
-    
+
+    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) { }
+
     //MARK: - Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? TrainViewController {
-            viewController.type = selectedType
+            /// вызовем функцию для конфигурирования начального состояния контроллера
+            viewController.configureInital(with: selectedType)
         }
     }
-    
-    private func configureButtons() {
-        //add shadow
-        buttonsCollection.forEach { button in
-            button.layer.shadowColor = UIColor.darkGray.cgColor
-            button.layer.shadowOffset = CGSize(width: 0, height: 2)
-            button.layer.shadowOpacity = 0.4
-            button.layer.shadowRadius = 3
-        }
-    }
-    
 }
-

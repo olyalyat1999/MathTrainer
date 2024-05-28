@@ -14,6 +14,7 @@
 		0F744CF82BF2B4EA0037B491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F744CF72BF2B4EA0037B491 /* Assets.xcassets */; };
 		0F744CFB2BF2B4EA0037B491 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 0F744CFA2BF2B4EA0037B491 /* Base */; };
 		0FE565792BFA4A1000FCE135 /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE565782BFA4A1000FCE135 /* TrainViewController.swift */; };
+		FAB11E642C06486500AB1B80 /* UIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB11E632C06486500AB1B80 /* UIBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0F744CFA2BF2B4EA0037B491 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F744CFC2BF2B4EA0037B491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FE565782BFA4A1000FCE135 /* TrainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
+		FAB11E632C06486500AB1B80 /* UIBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIBuilder.swift; path = ../../../../../../Develop/UIBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				0F744CF02BF2B4E80037B491 /* SceneDelegate.swift */,
 				0F744CF22BF2B4E80037B491 /* ViewController.swift */,
 				0FE565782BFA4A1000FCE135 /* TrainViewController.swift */,
+				FAB11E632C06486500AB1B80 /* UIBuilder.swift */,
 				0F744CF42BF2B4E80037B491 /* Main.storyboard */,
 				0F744CF72BF2B4EA0037B491 /* Assets.xcassets */,
 				0F744CF92BF2B4EA0037B491 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				0F744CF32BF2B4E80037B491 /* ViewController.swift in Sources */,
 				0FE565792BFA4A1000FCE135 /* TrainViewController.swift in Sources */,
 				0F744CEF2BF2B4E80037B491 /* AppDelegate.swift in Sources */,
+				FAB11E642C06486500AB1B80 /* UIBuilder.swift in Sources */,
 				0F744CF12BF2B4E80037B491 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
