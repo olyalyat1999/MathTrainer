@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -274,6 +274,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Rq-de-5pK"/>
+                                    <action selector="leftAction:" destination="kgF-y9-uI3" eventType="touchUpInside" id="q4t-1b-oEi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUX-KD-ivC">
@@ -295,6 +296,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xUP-07-tVS"/>
+                                    <action selector="rightAction:" destination="kgF-y9-uI3" eventType="touchUpInside" id="Bf3-Ji-IK2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -314,8 +316,9 @@
                     <navigationItem key="navigationItem" id="fRD-AE-vUT"/>
                     <connections>
                         <outlet property="backButton" destination="N1j-YU-gbA" id="kGS-oJ-2tQ"/>
-                        <outletCollection property="buttonsCollection" destination="TvL-OO-W4L" collectionClass="NSMutableArray" id="GCC-92-Ftt"/>
-                        <outletCollection property="buttonsCollection" destination="DUX-KD-ivC" collectionClass="NSMutableArray" id="aNa-aB-ful"/>
+                        <outlet property="leftButton" destination="TvL-OO-W4L" id="sMp-uD-IgJ"/>
+                        <outlet property="questionLabel" destination="YYZ-Wh-bSo" id="Aka-cZ-Ajl"/>
+                        <outlet property="rightButton" destination="DUX-KD-ivC" id="AM8-qb-vV3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O3Y-mq-mUc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
